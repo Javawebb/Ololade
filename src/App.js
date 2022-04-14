@@ -3,6 +3,7 @@ import { useCustomContext } from './Context/UserContext';
 import { Auth } from './Pages/Auth';
 import { Tasks } from './Pages/Tasks';
 import { useEffect } from 'react';
+import { Result } from './Pages/Result';
 
 function App() {
   const {user} = useCustomContext()
@@ -20,7 +21,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route index element={<Auth/>}/>
-        <Route path="tasks" element={<Tasks/>}/>
+        <Route path={"/tasks"} element={<Tasks/>}/>
+        <Route path={"/result"} element={<Result/>}/>
       </Routes>
     </div>
   );

@@ -4,12 +4,27 @@ import { useCustomContext } from '../Context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Alert } from '../components/Alert'
+import { motion } from 'framer-motion'
+import { TransitionPage } from '../components/TransitionPage'
 export const Auth = () => {
     const navigate = useNavigate()
     const { setUser } = useCustomContext()
     const name = useRef() 
     const age = useRef()
-
+    const variants ={
+        initial:{
+          x:'-100%',
+        //   scale:0.5
+        },
+        open:{
+          x:0,
+        //   scale: 1
+        },
+        exit:{
+          x:'100%',
+        //   scale:0
+        }
+      }
     const [isError,setIsError] = useState(false)
     const submitHandler = (event) => {
         event.preventDefault()
@@ -27,7 +42,7 @@ export const Auth = () => {
     }
 
   return (
-    <div className='flex flex-col justify-center items-center h-screen '>
+    <TransitionPage variants={variants} initial='initial' open='open'exit='exit' transition={{duration:1,type:'spring'}} className='flex flex-col justify-center items-center h-screen '>
         {isError ? <Alert/> : ''}
         <form onSubmit={submitHandler} className='p-14 bg-base-200 rounded-md shadow-md min-w-[320px] max-w-md w-1/2'>
             <h1 className='text-3xl'>Enter information</h1>
@@ -41,7 +56,6 @@ export const Auth = () => {
             </div>
             <button className='btn btn-primary w-full mt-10'>Start</button>
         </form>
-        
-    </div>
+    </TransitionPage>
   )
 }

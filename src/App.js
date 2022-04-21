@@ -1,34 +1,20 @@
-import { Routes, Route, useNavigate,useLocation} from 'react-router-dom';
-import { useCustomContext } from './Context/UserContext';
-import { Auth } from './Pages/Auth';
-import { Tasks } from './Pages/Tasks';
-import { useEffect } from 'react';
-import { Result } from './Pages/Result';
-import {AnimatePresence} from 'framer-motion'
+import { Routes, Route } from "react-router-dom";
+import { Tasks } from "./Pages/Tasks";
+import { Task } from "./components/Task";
+import { Navbar } from "./components/Navbar";
+import {Projects} from './Pages/Projects'
+import { AboutMe } from "./Pages/AboutMe";
 
 function App() {
-  const {user} = useCustomContext()
-  const navigate = useNavigate()
-  const location = useLocation()
-  useEffect(() =>{
-    if(!user.name){
-      return navigate('/')
-    }else{
-      return navigate('/tasks')
-    }
-  }, [])
-    
-
   return (
     <div className="App">
-      <AnimatePresence exitBeforeEnter>
-        <Routes location={location} key={location.pathname}>
-          <Route index element={<Auth/>}/>
-          <Route path={"/tasks"} element={<Tasks/>}/>
-          <Route path={"/result"} element={<Result/>}/>
+      <Navbar/>
+        <Routes>
+          <Route index element={<Tasks />} />
+          <Route path={'/projects'} element={<Projects/>}/>
+          <Route path={'/aboutme'} element={<AboutMe/>}/>
         </Routes>
-      </AnimatePresence>
-
+      <Task/>
     </div>
   );
 }
